@@ -23,7 +23,7 @@ public class TaskServlet extends HttpServlet {
     public void init(ServletConfig servletConfig) throws ServletException {
         DatabaseConnectionManager dbManager = (DatabaseConnectionManager) servletConfig.getServletContext().getAttribute("DB_MANAGER");
         TaskDAO taskDAO = new TaskDAOImpl();
-//        this.taskService = new TaskService(dbManager, taskDAO);
+        this.taskService = new TaskService(dbManager, taskDAO);
     }
 
     @Override
