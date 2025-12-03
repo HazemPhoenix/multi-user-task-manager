@@ -1,22 +1,34 @@
 package com.hazem.config;
 
-import org.postgresql.ds.PGPoolingDataSource;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.postgresql.ds.PGSimpleDataSource;
 
-import javax.sql.DataSource;
-import javax.xml.crypto.Data;
+import java.sql.Connection;
+import java.sql.SQLException;
+
 
 public class DatabaseConnectionManager {
-    public static PGSimpleDataSource getDataSource() {
-       String url = System.getenv("DB_URL");
-       String user = System.getenv("DB_USER");
-       String password = System.getenv("DB_PASSWORD");
+    private HikariDataSource dataSource;
 
-       PGSimpleDataSource dataSource = new PGSimpleDataSource();
-       dataSource.setUrl(url);
-       dataSource.setUser(user);
-       dataSource.setPassword(password);
+    public DatabaseConnectionManager(String url, String user, String password) {
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl(url);
+        config.setUsername(user);
+        config.setPassword(password);
+        config.setDriverClassName("org.postgresql.Driver");
 
-       return dataSource;
+        this.dataSource = new HikariDataSource(config);
     }
+
+    public Connection getConnection() throws SQLException {
+        return this.dataSource.getConnection();
+    }
+
+    public void shutdown() {
+        if(this.dataSource != null) {
+            this.dataSource.close();
+        }
+    }
+
 }
