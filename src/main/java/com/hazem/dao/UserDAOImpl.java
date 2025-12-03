@@ -10,11 +10,11 @@ import java.sql.SQLException;
 public class UserDAOImpl implements UserDAO {
     @Override
     public void save(Connection con, User user) throws SQLException {
-        String sql = "INSERT INTO users (email, password, username) VALUES (?,?,?)";
+        String sql = "INSERT INTO users (username, email, password) VALUES (?,?,?)";
         PreparedStatement preparedStatement = con.prepareStatement(sql);
-        preparedStatement.setString(1, user.getEmail());
-        preparedStatement.setString(2, user.getPassword());
-        preparedStatement.setString(3, user.getUsername());
+        preparedStatement.setString(1, user.getUsername());
+        preparedStatement.setString(2, user.getEmail());
+        preparedStatement.setString(3, user.getPassword());
         preparedStatement.executeUpdate();
     }
 

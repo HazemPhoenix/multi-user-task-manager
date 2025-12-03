@@ -19,7 +19,7 @@ public class UserService {
 
     public boolean registerUser(String username, String email, String password) {
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(12));
-        User user = new User(username, email, hashedPassword);
+        User user = new User(email, hashedPassword, username);
         try(Connection con = dbManager.getConnection()){
             userDAO.save(con, user);
             return true;
