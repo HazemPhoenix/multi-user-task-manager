@@ -44,11 +44,9 @@ public class AuthServlet extends HttpServlet {
         String password = req.getParameter("password");
 
         if(this.userService.registerUser(username, email, password)) {
-            resp.sendRedirect("../webapp/jsp/login.jsp");
+            resp.sendRedirect(req.getContextPath() + "/jsp/login.jsp");
         } else {
-            PrintWriter out = resp.getWriter();
-            out.println("Something went wrong, please try again.");
-            req.getRequestDispatcher("../webapp/jsp/register.jsp").include(req, resp);
+            resp.sendRedirect(req.getContextPath() + "/jsp/register.jsp");
         }
     }
 
@@ -61,9 +59,7 @@ public class AuthServlet extends HttpServlet {
         if(user != null) {
             req.getSession().setAttribute("user", user);
         } else {
-            PrintWriter out = resp.getWriter();
-            out.println("Email and/or Password are incorrect.");
-            req.getRequestDispatcher("../webapp/jsp/login.jsp").include(req, resp);
+            resp.sendRedirect(req.getContextPath() + "/jsp/login.jsp");
         }
     }
 }
