@@ -9,6 +9,12 @@ public class Task {
     public Task() {
     }
 
+    public Task(String name, int userId, boolean isDone) {
+        this.name = name;
+        this.userId = userId;
+        this.isDone = isDone;
+    }
+
     public Task(int id, String name, int userId, boolean isDone) {
         this.id = id;
         this.name = name;

@@ -14,6 +14,12 @@ public class User {
         this.tasks = new ArrayList<>();
     }
 
+    public User(String email, String password, String username) {
+        this.email = email;
+        this.password = password;
+        this.username = username;
+    }
+
     public User(int id, String email, String password, String username, List<Task> tasks) {
         this.id = id;
         this.email = email;

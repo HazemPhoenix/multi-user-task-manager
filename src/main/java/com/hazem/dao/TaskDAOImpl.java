@@ -1,4 +1,4 @@
 package com.hazem.dao;
 
-public class TaskDAOImpl {
+public class TaskDAOImpl implements TaskDAO{
 }
