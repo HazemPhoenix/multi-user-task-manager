@@ -6,6 +6,8 @@ import com.hazem.model.Task;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TaskService {
     private final DatabaseConnectionManager dbManager;
@@ -22,6 +24,29 @@ public class TaskService {
             taskDao.save(con, task);
             return true;
         } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public List<Task> getUserTasks(int userId) {
+        try(Connection con = dbManager.getConnection()){
+            return this.taskDao.findAllByUser(con, userId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
+    public boolean deleteTaskById(int id) {
+        try(Connection con = dbManager.getConnection()) {
+            Task task = taskDao.findById(con, id);
+            if(task == null) {
+                throw new RuntimeException("Task not found.");
+            }
+            this.taskDao.delete(con, task);
+            return true;
+        } catch (SQLException | RuntimeException e) {
             e.printStackTrace();
             return false;
         }

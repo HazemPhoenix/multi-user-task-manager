@@ -58,6 +58,7 @@ public class AuthServlet extends HttpServlet {
 
         if(user != null) {
             req.getSession().setAttribute("user", user);
+            resp.sendRedirect("tasks");
         } else {
             resp.sendRedirect(req.getContextPath() + "/jsp/login.jsp");
         }
