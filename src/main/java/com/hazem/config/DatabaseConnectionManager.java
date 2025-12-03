@@ -17,7 +17,6 @@ public class DatabaseConnectionManager {
         config.setUsername(user);
         config.setPassword(password);
         config.setDriverClassName("org.postgresql.Driver");
-
         this.dataSource = new HikariDataSource(config);
     }
 
