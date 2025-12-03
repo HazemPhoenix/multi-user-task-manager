@@ -1,19 +1,25 @@
 package com.hazem.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
     private int id;
     private String email;
     private String password;
     private String username;
+    private List<Task> tasks;
 
     public User() {
+        this.tasks = new ArrayList<>();
     }
 
-    public User(int id, String email, String password, String username) {
+    public User(int id, String email, String password, String username, List<Task> tasks) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.username = username;
+        this.tasks = tasks;
     }
 
     public int getId() {
@@ -47,4 +53,13 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
 }
