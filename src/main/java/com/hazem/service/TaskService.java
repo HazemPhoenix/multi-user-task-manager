@@ -18,14 +18,12 @@ public class TaskService {
         this.taskDao = taskDAO;
     }
 
-    public boolean addTask(int userId, String name, boolean isDone) {
+    public void addTask(int userId, String name, boolean isDone) {
         Task task = new Task(name, userId, isDone);
         try(Connection con = dbManager.getConnection()) {
             taskDao.save(con, task);
-            return true;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
     }
 
@@ -38,17 +36,24 @@ public class TaskService {
         }
     }
 
-    public boolean deleteTaskById(int id) {
+    public void deleteTaskById(int id) {
         try(Connection con = dbManager.getConnection()) {
             Task task = taskDao.findById(con, id);
             if(task == null) {
                 throw new RuntimeException("Task not found.");
             }
             this.taskDao.delete(con, task);
-            return true;
         } catch (SQLException | RuntimeException e) {
             e.printStackTrace();
-            return false;
+        }
+    }
+
+    public void updateTask(int taskId, String name, boolean isDone) {
+        Task task = new Task(taskId, name, isDone);
+        try(Connection con = dbManager.getConnection()) {
+            this.taskDao.update(con, task);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

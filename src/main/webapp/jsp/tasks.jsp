@@ -64,6 +64,12 @@
                 <input type="hidden" name="_method" value="DELETE"/>
                 <button type="submit">Delete</button>
             </form>
+            <form action="${pageContext.request.contextPath}/jsp/update_task.jsp">
+                <input type="hidden" name="name" value="${task.getName()}">
+                <input type="hidden" name="isDone" value="${task.isDone()}">
+                <input type="hidden" name="id" value="${task.getId()}">
+                <button type="submit">Edit</button>
+            </form>
         </div>
         <hr>
     </c:forEach>

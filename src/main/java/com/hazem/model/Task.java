@@ -15,6 +15,12 @@ public class Task {
         this.isDone = isDone;
     }
 
+    public Task(int id, String name, boolean isDone) {
+        this.id = id;
+        this.name = name;
+        this.isDone = isDone;
+    }
+
     public Task(int id, String name, int userId, boolean isDone) {
         this.id = id;
         this.name = name;

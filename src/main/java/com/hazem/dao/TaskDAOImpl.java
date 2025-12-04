@@ -47,8 +47,13 @@ public class TaskDAOImpl implements TaskDAO {
     }
 
     @Override
-    public void update(Connection con, Task task) {
-
+    public void update(Connection con, Task task) throws SQLException {
+        String sql = "UPDATE tasks SET name = ?, is_done = ? WHERE id = ?";
+        PreparedStatement preparedStatement = con.prepareStatement(sql);
+        preparedStatement.setString(1, task.getName());
+        preparedStatement.setBoolean(2, task.isDone());
+        preparedStatement.setInt(3, task.getId());
+        preparedStatement.executeUpdate();
     }
 
     @Override

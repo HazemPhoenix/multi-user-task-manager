@@ -15,7 +15,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 @WebServlet(value = "/tasks/*")
@@ -32,13 +31,21 @@ public class TaskServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String pathInfo = req.getPathInfo();
-        System.out.println(pathInfo);
-        if (req.getParameter("_method") != null && req.getParameter("_method").equalsIgnoreCase("DELETE")) {
-            handleDeleteTask(req, resp);
-        }
-        else if (pathInfo.equals("/newTask")) {
+        if (pathInfo.equals("/newTask")) {
             handleAddTask(req, resp);
+        } 
+        else if (req.getParameter("_method") != null) {
+            if(req.getParameter("_method").equalsIgnoreCase("DELETE")) handleDeleteTask(req, resp);
+            if(req.getParameter("_method").equalsIgnoreCase("PUT")) handleUpdateTask(req, resp);
         }
+    }
+
+    private void handleUpdateTask(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String name = req.getParameter("name");
+        boolean isDone = req.getParameter("isDone") != null;
+        int taskId =  Integer.parseInt(req.getParameter("id"));
+        this.taskService.updateTask(taskId, name, isDone);
+        resp.sendRedirect(req.getContextPath() + "/tasks");
     }
 
     private void handleDeleteTask(HttpServletRequest req, HttpServletResponse resp) throws IOException {
