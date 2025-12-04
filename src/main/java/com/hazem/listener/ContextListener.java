@@ -10,10 +10,7 @@ import jakarta.servlet.annotation.WebListener;
 public class ContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        String dbUrl = System.getenv("DB_URL");
-        String dbUser = System.getenv("DB_USER");
-        String dbPassword = System.getenv("DB_PASSWORD");
-        DatabaseConnectionManager connectionManager = new DatabaseConnectionManager(dbUrl, dbUser, dbPassword);
+        DatabaseConnectionManager connectionManager = DatabaseConnectionManager.INSTANCE;
         ServletContext sc = sce.getServletContext();
 
         sc.setAttribute("DB_MANAGER", connectionManager);

@@ -8,10 +8,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 
-public class DatabaseConnectionManager {
-    private HikariDataSource dataSource;
+public enum DatabaseConnectionManager {
+    INSTANCE (System.getenv("DB_URL"), System.getenv("DB_USER"), System.getenv("DB_PASSWORD"));
+    private final HikariDataSource dataSource;
 
-    public DatabaseConnectionManager(String url, String user, String password) {
+    DatabaseConnectionManager(String url, String user, String password) {
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl(url);
         config.setUsername(user);
